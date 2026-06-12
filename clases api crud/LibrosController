@@ -1,0 +1,70 @@
+using Microsoft.AspNetCore.Mvc;
+using MiApi.Model;
+[ApiController]
+[Route("api/[controller]")]
+public class LibrosController : ControllerBase
+{
+    private static List<Libro> libros = new List<Libro>
+    {
+        new Libro { Id = 1, Titulo = "Clean Code", Autor = "Robert Martin", Anio = 2008 },
+        new Libro { Id = 2, Titulo = "The Pragmatic Programmer", Autor = "David Thomas", Anio = 1999 }
+    };
+
+    // GET /api/libros
+    [HttpGet]
+    public IActionResult GetTodos()
+    {
+        return Ok(libros);
+    }
+
+    // GET /api/libros/1
+    [HttpGet("{id}")]
+    public IActionResult GetPorId(int id)
+    {
+        var libro = libros.FirstOrDefault(l => l.Id == id);
+        if (libro == null)
+            return NotFound($"No existe libro con Id {id}");
+        return Ok(libro);
+    }
+    [HttpGet("buscar")]
+    public IActionResult BuscarPorAutor(string autor)  // recibe el query param
+    {
+        var resultado = libros.Where(l => l.Autor == autor).ToList();
+        if (resultado.Count == 0)
+            return NotFound($"No hay libros de {autor}");
+        return Ok(resultado);
+    }
+
+    [HttpPost]
+    public IActionResult Agregar([FromBody] Libro libro)  // recibe el objeto del body
+    {
+        libro.Id = libros.Count + 1;
+        libros.Add(libro);
+        return Created($"/api/libros/{libro.Id}", libro);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Actualizar(int id, [FromBody] Libro libroActualizado)
+    {
+        var libro = libros.FirstOrDefault(l => l.Id == id);
+        if (libro == null)
+            return NotFound($"No existe libro con Id {id}");
+
+        libro.Titulo = libroActualizado.Titulo;
+        libro.Autor = libroActualizado.Autor;
+        libro.Anio = libroActualizado.Anio;
+
+        return Ok(libro);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Eliminar(int id)
+    {
+        var libro = libros.FirstOrDefault(l => l.Id == id);
+        if (libro == null)
+            return NotFound($"No existe libro con Id {id}");
+
+        libros.Remove(libro);
+        return Ok($"Libro '{libro.Titulo}' eliminado");
+    }
+}
