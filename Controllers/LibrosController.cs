@@ -41,7 +41,7 @@ public class LibrosController : ControllerBase
     {
         var libro = _service.Actualizar(id, libroActualizado);
         if (libro == null)
-            return NotFound($"No existe libro con Id {id}");
+            return NotFound($"No existe libro con Id        {id}");
         return Ok(libro);
     }
 
