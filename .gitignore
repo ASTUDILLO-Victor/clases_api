@@ -1,0 +1,67 @@
+## .NET build artifacts
+bin/
+obj/
+
+## User-specific files
+*.rsuser
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio / Rider
+.vs/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.iml
+
+## JetBrains
+.idea/
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+packages/
+!**/packages/build/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## SQLite database (local dev data — not for source control)
+*.db
+*.db-shm
+*.db-wal
+
+## Secrets / environment
+appsettings.Development.json
+*.pfx
+*.p12
+.env
+.env.*
+
+## Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+TestResults/
+
+## OS
+.DS_Store
+Thumbs.db
